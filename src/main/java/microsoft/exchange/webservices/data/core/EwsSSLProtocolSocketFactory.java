@@ -23,15 +23,15 @@
 
 package microsoft.exchange.webservices.data.core;
 
-import org.apache.http.conn.ssl.DefaultHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.ssl.SSLContexts;
+import java.security.GeneralSecurityException;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 
-import java.security.GeneralSecurityException;
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
 
 /**
  * <p>
@@ -81,7 +81,7 @@ public class EwsSSLProtocolSocketFactory extends SSLConnectionSocketFactory {
   /**
    * Default hostname verifier.
    */
-  private static final HostnameVerifier DEFAULT_HOSTNAME_VERIFIER = new DefaultHostnameVerifier();
+  private static final HostnameVerifier DEFAULT_HOSTNAME_VERIFIER = new AllowAllHostnameVerifier();
 
 
   /**
@@ -99,7 +99,7 @@ public class EwsSSLProtocolSocketFactory extends SSLConnectionSocketFactory {
   public EwsSSLProtocolSocketFactory(
     SSLContext context, HostnameVerifier hostnameVerifier
   ) {
-    super(context, hostnameVerifier);
+    super(context);
     this.sslcontext = context;
   }
 
